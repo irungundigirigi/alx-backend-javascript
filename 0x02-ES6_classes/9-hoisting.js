@@ -86,4 +86,3 @@ const listOfStudents = [student1, student2, student3, student4, student5];
 
 // Export the list of students
 export default listOfStudents;
-
