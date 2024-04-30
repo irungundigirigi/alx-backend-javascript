@@ -9,4 +9,3 @@ const displayMessage = (message) => {
 };
 
 module.exports = displayMessage;
-
