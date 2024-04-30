@@ -3,40 +3,34 @@ const fs = require('fs');
 function countStudents(file_path) {
     const students = {};
     const fields = {};
-    let len = 0;
 
     try {
-      const file = fs.readFileSync(file_path, 'utf-8');
-      const lines = file.toString().split('\n');
+        const file = fs.readFileSync(file_path, 'utf-8');
+        const lines = file.toString().split('\n');
+        
+        for (let i = 1; i < lines.length; i++) { // Start from 1 to skip header row
+            const line_fields = lines[i].split(',');
 
-      let i = 1;
-      while (i < lines.length) {
-        if (lines[i]) {
-            len += 1;
-            const line_fields = lines[i].toString().split(',');
-            if (Object.prototype.hasOwnProperty.call(students, line_field[3])) {
-                students[line_field[3]].push(field[0]);
-            } else {
-                students[line_fields[3]] = [line_fields[0]];
+            if (line_fields.length < 4) continue; // Skip invalid lines
+            
+            const field = line_fields[3].trim(); // Trim to remove any leading/trailing spaces
+            
+            if (!students[field]) {
+                students[field] = [];
+                fields[field] = 0;
             }
-            if (Object.prototype.hasOwnProperty(fields, line_fields[3])) {
-                fields[line_fields[3]] += 1;
-            } else {
-                fields[line_fields[3]] = 1;
-            }
-
+            
+            students[field].push(line_fields[0].trim());
+            fields[field]++;
         }
-        i += 1;
-      }
-      const l = length;
-      console.log(`Number of students: ${l}`);
-      for (const [key, value] of Object.entries(fields)) {
-        if (key !== 'field') {
+
+        console.log(`Number of students: ${lines.length - 1}`); // Minus 1 to exclude header row
+
+        for (const [key, value] of Object.entries(fields)) {
             console.log(`Number of students in ${key}: ${value}. List: ${students[key].join(', ')}`);
         }
-      }
     } catch (error) {
-      throw Error('Cannot load the database');  
+        throw new Error('Cannot load the database');
     }
 }
 
