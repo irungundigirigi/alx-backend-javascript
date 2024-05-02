@@ -1,3 +1,4 @@
+#!/uar/bin/env node
 /**
  * This script prompts the user to enter their name and displays it back.
  * If executed in a TTY environment, it reads from stdout. Otherwise, it reads from stdin.
